@@ -1,0 +1,95 @@
+body{
+  background-color: #752020;
+}
+
+#header {
+  margin-left: 20%;
+}
+
+.header-text{
+  font-size: 60px;
+  margin-top: auto;
+  display: inline-block;
+}
+
+#buttons {
+  display: inline-block;
+  position: relative;
+  float: right;
+}
+
+.header-button{
+  display: block;
+  background-color: #e3ab1c;
+  border: 2px solid #e3ab1c;
+  color: black;
+  padding: 10px 26px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  width: 110px;
+}
+
+.left-button{
+  display: block;
+  background-color: #88ec58;
+  border: 2px solid #88ec58;
+  color: black;
+  padding: 10px 26px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 20px;
+  margin-left: 20%;
+  margin-top: 50px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  width: 400px;
+}
+
+
+.header-button:hover{
+  background-color: #996c14;
+  color: white;
+}
+
+.left-button:hover{
+  background-color: #427912;
+  color: white;
+}
+
+hr {
+  border-top: 8px solid #e3ab1c;
+  border-radius: 5px;
+}
+
+.search input[type=text] {
+  padding: 6px;
+  border: none;
+  margin-left: 20%;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+  width: 400px;
+
+
+
+  background-image: url('./assets/images/search.svg');
+  /* Add a search icon to input */
+  background-position: right;
+  /* Position the search icon */
+  background-repeat: no-repeat;
+  /* Do not repeat the icon image */
+}
+
+#left {
+  width: 50%;
+  display: inline-block;
+}
+
+#pawprint_btn {
+  position: relative;
+  margin-bottom: -1%;
+}
