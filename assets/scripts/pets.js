@@ -9,7 +9,17 @@ let cellbutton = function(id){
   for (let text of rows){
 
     if (text.id != ""){
-      console.log(text.id);
+      for(let atr of Object.keys(pets[id])){
+        if (text.id == atr) {
+          if(text.id != "pet_image"){
+            text.innerHTML = pets[id][atr];
+          }
+          else{
+            let img = document.getElementById("p_image");
+            img.src = "../images/" + pets[id][atr];
+          }
+        }
+      }
     }
   }
 }
@@ -19,6 +29,11 @@ let setup = function(){
 
   let table = document.getElementById("owners_table").getElementsByTagName('tbody')[0];
   if(pets != undefined){
+    cellbutton(0);
+
+
+
+
     pets.forEach(p =>{
       let row = table.insertRow();
       for (let i = 0; i < 3; i++){
@@ -39,7 +54,6 @@ let setup = function(){
         cell.onclick = function() {cellbutton(cell.id);};
         cell.appendChild(text);
       }
-      console.log(p);
     });
   }
   else{
