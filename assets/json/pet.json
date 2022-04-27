@@ -1,0 +1,62 @@
+[
+  {
+
+    "id": 0,
+    "pet_owner": "Anthony Conroy",
+    "pet_name": "Kirby",
+    "pet_type": "Dog",
+    "pet_breed": "Pomeranian",
+    "pet_sex": "Male",
+    "pet_age": 5,
+    "pet_image": "Kirby.jpg",
+  },
+
+  {
+
+    "id": 1,
+    "pet_owner": "Meghan Higgins",
+    "pet_name": "Candy",
+    "pet_type": "Cat",
+    "pet_breed": "American Shorthair",
+    "pet_sex": "Female",
+    "pet_age": 4,
+    "pet_image": "Candy.jpg",
+  },
+
+  {
+
+    "id": 2,
+    "pet_owner": "Maria Mavrorasakis",
+    "pet_name": "Potus",
+    "pet_type": "Rabbit",
+    "pet_breed": "Brush",
+    "pet_sex": "Female",
+    "pet_age": 2,
+    "pet_image": "Potus.jpg",
+  },
+
+  {
+
+    "id": 3,
+    "pet_owner": "Juan Degiovanni",
+    "pet_name": "Cookie",
+    "pet_type": "Fish",
+    "pet_breed": "Koi",
+    "pet_sex": "Male",
+    "pet_age": 1,
+    "pet_image": "Cookie.jpg",
+  },
+
+  {
+
+    "id": 4,
+    "pet_owner": "Carly Byman",
+    "pet_name": "Clifford",
+    "pet_type": "Bird",
+    "pet_breed": "Parakeet",
+    "pet_sex": "Male",
+    "pet_age": 7,
+    "pet_image": "Clifford.jpg",
+  }
+
+]
