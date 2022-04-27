@@ -1,6 +1,6 @@
 let pets;
 
-$.getJSON("https://cukeds.github.io/anthony/assets/json/pet.json", function(json) {
+$.getJSON("https://cukeds.github.io/anthony/assets/json/students.json", function(json) {
   pets = json;
 });
 
