@@ -1,0 +1,62 @@
+[
+  {
+
+    "id": 0,
+    "pet_owner": "Hai Wu",
+    "pet_name": "Nicky",
+    "pet_type": "Dog",
+    "pet_breed": "Shih-tzu",
+    "pet_sex": "Male",
+    "pet_age": 10,
+    "pet_image": "Nicky.jpg",
+  },
+
+  {
+
+    "id": 1,
+    "pet_owner": "Bethany Clark",
+    "pet_name": "Gooba",
+    "pet_type": "Cat",
+    "pet_breed": "Siamese",
+    "pet_sex": "Female",
+    "pet_age": 3,
+    "pet_image": "Gooba.jpg",
+  },
+
+  {
+
+    "id": 2,
+    "pet_owner": "Christopher Schwartzenberge",
+    "pet_name": "Sarah",
+    "pet_type": "Hamster",
+    "pet_breed": "Syrian",
+    "pet_sex": "Female",
+    "pet_age": 2,
+    "pet_image": "Sarah.jpg",
+  },
+
+  {
+
+    "id": 3,
+    "pet_owner": "Alexandria Vigliotti",
+    "pet_name": "Ruby",
+    "pet_type": "Ferret",
+    "pet_breed": "Albino",
+    "pet_sex": "Female",
+    "pet_age": 1,
+    "pet_image": "Mario.jpg",
+  },
+
+  {
+
+    "id": 4,
+    "pet_owner": "Stella Kasamis",
+    "pet_name": "Rondo",
+    "pet_type": "Bird",
+    "pet_breed": "Parrot",
+    "pet_sex": "Male",
+    "pet_age": 5,
+    "pet_image": "Rondo.jpg",
+  }
+
+]
