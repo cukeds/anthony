@@ -1,6 +1,35 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
+<?php
+
+include("../php/dbconnect.php");
+$conn = OpenCon();
+// Update JSON STUDENTS
+$sql = "SELECT @n := @n + 1 id, CONCAT(first_name, ' ', last_name) AS pet_owner, name AS pet_name, type AS pet_type, breed AS pet_breed, sex AS pet_sex, p.age AS pet_age, photo AS pet_image FROM owners AS o, pets AS p, ownership AS ow, (SELECT @n := -1) m WHERE p.pet_id = ow.pet_id AND ow.owner_id = o.owner_id AND o.owner_id IN (SELECT owner_id FROM owners WHERE isstaff IS FALSE)";
+$result = $conn->query($sql);
+$owner = array();
+while($row = $result->fetch_assoc()){
+  $owner[] = $row;
+
+}
+$fp = fopen('../json/students.json', 'w');
+fwrite($fp, json_encode($owner));
+fclose($fp);
+
+$sql = "SELECT @n := @n + 1 id, CONCAT(first_name, ' ', last_name) AS pet_owner, name AS pet_name, type AS pet_type, breed AS pet_breed, sex AS pet_sex, p.age AS pet_age, photo AS pet_image FROM owners AS o, pets AS p, ownership AS ow, (SELECT @n := -1) m WHERE p.pet_id = ow.pet_id AND ow.owner_id = o.owner_id AND o.owner_id IN (SELECT owner_id FROM owners WHERE isstaff IS TRUE)";
+$result = $conn->query($sql);
+$owner = array();
+while($row = $result->fetch_assoc()){
+  $owner[] = $row;
+
+}
+$fp = fopen('../json/staffpets.json', 'w');
+fwrite($fp, json_encode($owner));
+fclose($fp);
+
+CloseCon($conn);
+?>
 <head>
   <link rel="stylesheet" href="../CSS/pets.css">
   <title>STAC Pet Portal</title>
@@ -12,7 +41,7 @@
 
   <div id="header">
     <h1 class="header-text"> Pet </h1>
-    <img src="../images/Paw-print.svg" width="80px" height="80px" />
+    <img id="paw" src="../images/Paw-print.svg" width="80px" height="80px" />
     <h1 class="header-text"> Portal </h1>
     <div id="buttons">
       <button class="header-button" type="button">Login</button>

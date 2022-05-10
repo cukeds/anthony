@@ -1,5 +1,9 @@
+function openwebpage(url){
+  window.open(url, "_self");
+}
+
 function setup() {
-  console.log("hi");
+    document.getElementById("paw").onclick = function(){openwebpage("../../index.php")};
 }
 
 setup();

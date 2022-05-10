@@ -31,3 +31,51 @@ body {
 .hidden {
   display: none;
 }
+
+
+
+#header {
+  margin-left: 20%;
+  color: black;
+}
+
+.header-text{
+  font-size: 60px;
+  margin-top: auto;
+  display: inline-block;
+}
+
+#buttons {
+  display: inline-block;
+  position: relative;
+  float: right;
+}
+
+.header-button{
+  display: block;
+  background-color: #e3ab1c;
+  border: 2px solid #e3ab1c;
+  color: black;
+  padding: 10px 26px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  width: 110px;
+}
+
+.header-button:hover{
+  background-color: #996c14;
+  color: white;
+}
+
+hr {
+  border-top: 8px solid #e3ab1c;
+  border-radius: 5px;
+}
+
+#paw {
+  cursor: pointer;
+}
