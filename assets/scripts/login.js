@@ -5,7 +5,6 @@ function openwebpage(url){
 function setup() {
     document.getElementById("paw").onclick = function(){openwebpage("../../index.php")};
 
-
     let auth = document.getElementsByClassName("header-button");
     [].forEach.call(auth, function(btn){
       if(btn.id != "logout"){
@@ -14,7 +13,7 @@ function setup() {
       else{
         btn.onclick = logout;
       }
-  });
+    });
 }
 
 function logout(){

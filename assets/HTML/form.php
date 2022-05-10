@@ -1,4 +1,6 @@
-<?php if (!isset($_SESSION)) {
+<?php
+
+if (!isset($_SESSION)) {
 session_start();
 }
 
@@ -13,6 +15,8 @@ if (@$_SESSION['postdata']){
 $_POST=$_SESSION['postdata'];
 unset($_SESSION['postdata']);
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -29,13 +33,24 @@ $conn = OpenCon();
 </head>
 
 <body>
+
+
+
   <div id="header">
     <h1 class="header-text"> Pet </h1>
     <img id="paw" src="../images/Paw-print.svg" width="80px" height="80px" />
     <h1 class="header-text"> Portal </h1>
     <div id="buttons">
-      <button class="header-button" type="button">Login</button>
-      <button class="header-button" type="button">Register</button>
+      <button class="header-button tbh" type="button" id="login">Login</button>
+      <button class="header-button tbh" type="button" id="register">Register</button>
+      <?php
+      if(isset($_COOKIE["owner_id"])){
+        $sql = "SELECT first_name, last_name FROM owners WHERE owner_id = '$_COOKIE[owner_id]'";
+        $result = $conn->query($sql);
+        echo '<a class="header-name"> Hi ' . $result->fetch_assoc()["first_name"] . '</a>';
+      }
+        ?>
+      <button class="header-button hidden" type="button" id="logout">Log Out</button>
     </div>
   </div>
   <hr>
@@ -48,29 +63,29 @@ $conn = OpenCon();
 
         <form name="PetPortalForm" action="form.php" method="POST" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="fname">Your First Name</label>
-                <input type="text" class="form-control" name="fname" placeholder="Enter your name"></input>
+                <label for="fname" class="tbc">Your First Name</label>
+                <input type="text" class="form-control tbh" name="fname" placeholder="Enter your name"></input>
             </div>
             <div class="form-group">
-                <label for="lname">Your Last Name</label>
-                <input type="text" class="form-control" name="lname" placeholder="Enter your last name"></input>
+                <label for="lname" class="tbc">Your Last Name</label>
+                <input type="text" class="form-control tbh" name="lname" placeholder="Enter your last name"></input>
             </div>
             <div class="form-group">
-                <label for="sage">Your Age</label>
-                <input type="text" class="form-control" name="sage" pattern="[0-9]{1,3}$" placeholder="Enter your age"></input>
+                <label for="sage" class="tbc">Your Age</label>
+                <input type="text" class="form-control tbh" name="sage" pattern="[0-9]{1,3}$" placeholder="Enter your age"></input>
             </div>
             <div class="form-group">
-                <label for="sors">Student or Staff?</label>
-                <select class="form-control" name="sors" id="sors">
+                <label for="sors" class="tbc">Student or Staff?</label>
+                <select class="form-control tbh" name="sors" id="sors">
                   <option value=1>Staff</option>
                   <option selected value=0>Student</option>
                 </select>
             </div>
             <div class="form-group">
-              <label for="syear">School Year</label>
-              <select class="form-control" name="syear" id="syear">
+              <label for="syear" class="tbc">School Year</label>
+              <select class="form-control tbh" name="syear" id="syear">
                 <option selected value="">None</option>
-                <option value="freshman">Freshman</option>
+                <option value="Freshman">Freshman</option>
                 <option value="Sophomore">Sophomore</option>
                 <option value="Junior">Junior</option>
                 <option value="Senior">Senior</option>
@@ -78,8 +93,8 @@ $conn = OpenCon();
               </select>
             </div>
             <div class="form-group">
-                <label for="awork">Area of Work</label>
-                <input type="text" class="form-control" name="awork" placeholder="Enter your area of work"></input>
+                <label for="awork" class="tbc">Area of Work</label>
+                <input type="text" class="form-control tbh" name="awork" placeholder="Enter your area of work"></input>
             </div>
             <hr class="bar">
             <div class="form-group">
@@ -157,20 +172,39 @@ $conn = OpenCon();
             $breed = $_POST["pbreed"];
             $sex = $_POST["psex"];
             $photo = $_POST["pname"] . ".jpg";
-            $sql = "INSERT INTO owners(first_name, last_name, age, isstaff, school_year, area_of_work) VALUES('$first_name', '$last_name', '$age', '$isstaff', '$school_year', '$area_of_work')";
-            $conn->query($sql);
+            if(!isset($_COOKIE)){
+              $sql = "INSERT INTO owners(first_name, last_name, age, isstaff, school_year, area_of_work) VALUES('$first_name', '$last_name', '$age', '$isstaff', '$school_year', '$area_of_work')";
+              $conn->query($sql);
+            }
             $sql = "INSERT INTO pets(name, type, age, breed, sex, photo) VALUES('$name', '$type', '$pet_age', '$breed', '$sex', '$photo')";
             $conn->query($sql);
-            $sql = "INSERT INTO ownership VALUES((SELECT owner_id FROM owners ORDER BY owner_id DESC LIMIT 1), (SELECT pet_id FROM pets ORDER BY pet_id DESC LIMIT 1));";
+            if(isset($_COOKIE)){
+              $sql = "INSERT INTO ownership VALUES('$_COOKIE[owner_id]', (SELECT pet_id FROM pets ORDER BY pet_id DESC LIMIT 1));";
+            }else{
+              $sql = "INSERT INTO ownership VALUES((SELECT owner_id FROM owners ORDER BY owner_id DESC LIMIT 1), (SELECT pet_id FROM pets ORDER BY pet_id DESC LIMIT 1));";
+            }
             $conn->query($sql);
 
           }
           ?>
 
-<script src="../scripts/form.js"></script>
 </body>
 
 
 
-<?php CloseCon($conn); ?>
+<script src="../scripts/cookies.js"></script>
+<script src="../scripts/form.js"></script>
+
+<?php if(isset($_COOKIE['owner_id'])){
+  $sql = "SELECT first_name AS fname, last_name AS lname, age AS sage, isstaff AS sors, school_year AS syear, area_of_work AS awork FROM owners WHERE owner_id = '$_COOKIE[owner_id]'";
+  $result = $conn->query($sql);
+  $result = json_encode($result->fetch_assoc());
+  echo "<script type='text/javascript'>cookie($_COOKIE[owner_id], $result);</script>";
+}
+?>
+
+
+<?php CloseCon($conn);
+
+?>
 </html>

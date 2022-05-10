@@ -28,7 +28,6 @@ $fp = fopen('../json/staffpets.json', 'w');
 fwrite($fp, json_encode($owner));
 fclose($fp);
 
-CloseCon($conn);
 ?>
 <head>
   <link rel="stylesheet" href="../CSS/pets.css">
@@ -44,13 +43,29 @@ CloseCon($conn);
     <img id="paw" src="../images/Paw-print.svg" width="80px" height="80px" />
     <h1 class="header-text"> Portal </h1>
     <div id="buttons">
-      <button class="header-button" type="button">Login</button>
-      <button class="header-button" type="button">Register</button>
+      <button class="header-button tbh" type="button" id="login">Login</button>
+      <button class="header-button tbh" type="button" id="register">Register</button>
+      <?php
+      if(isset($_COOKIE["owner_id"])){
+        $sql = "SELECT first_name, last_name FROM owners WHERE owner_id = '$_COOKIE[owner_id]'";
+        $result = $conn->query($sql);
+        echo '<a class="header-name"> Hi ' . $result->fetch_assoc()["first_name"] . '</a>';
+      }
+        ?>
+      <button class="header-button hidden" type="button" id="logout">Log Out</button>
     </div>
   </div>
   <hr>
   <!–– up to here is the header of the webpage, everything below here goes into a different div ––>
 
+
+  <div class="search">
+    <input autocomplete="off" type="text" id="search" placeholder="Search.." onkeyup="filter()">
+    <div id="search_div">
+      <div id="absolute_div">
+      </div>
+    </div>
+  </div>
 
   <div>
     <select id="staff_or_student">
@@ -100,8 +115,20 @@ CloseCon($conn);
       </div>
 
     </div>
+    <script src="../scripts/cookies.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src="../scripts/pets.js"></script>
+
+
+    <?php if(isset($_COOKIE['owner_id'])){
+      $sql = "SELECT first_name AS fname, last_name AS lname, age AS sage, isstaff AS sors, school_year AS syear, area_of_work AS awork FROM owners WHERE owner_id = '$_COOKIE[owner_id]'";
+      $result = $conn->query($sql);
+      $result = json_encode($result->fetch_assoc());
+      echo "<script type='text/javascript'>cookie($_COOKIE[owner_id], $result);</script>";
+    }
+
+    CloseCon($conn);
+    ?>
 </body>
 
 

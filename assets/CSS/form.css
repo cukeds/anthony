@@ -28,10 +28,6 @@ body {
   margin-left: 0px;
 }
 
-.hidden {
-  display: none;
-}
-
 
 
 #header {
@@ -78,4 +74,15 @@ hr {
 
 #paw {
   cursor: pointer;
+}
+
+.header-name{
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+  color: red;
+}
+
+.hidden {
+  display: none;
 }

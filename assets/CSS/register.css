@@ -1,9 +1,39 @@
-body{
+body {
   background-color: #752020;
+  color: #fff;
+  font-size: 20px;
 }
+
+.form-group {
+  width: 190px;
+  color: #000;
+  text-align: center;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-top: 3px;
+  padding-right: 5px;
+  border: 1px dashed black;
+  background-color: #e3ab1c;
+}
+
+.form-control {
+  font-size: 16px;
+  display: flex;
+  text-align: center;
+  margin-left: 3%;
+}
+
+.bar {
+  width: 200px;
+  margin-left: 0px;
+}
+
+
+
 
 #header {
   margin-left: 20%;
+  color: black;
 }
 
 .header-text{
@@ -33,30 +63,8 @@ body{
   width: 110px;
 }
 
-.left-button{
-  display: block;
-  background-color: #88ec58;
-  border: 2px solid #88ec58;
-  color: black;
-  padding: 10px 26px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 20px;
-  margin-left: 20%;
-  margin-top: 50px;
-  transition-duration: 0.4s;
-  cursor: pointer;
-  width: 400px;
-}
-
-
 .header-button:hover{
   background-color: #996c14;
-  color: white;
-}
-
-.left-button:hover{
-  background-color: #427912;
   color: white;
 }
 
@@ -65,39 +73,9 @@ hr {
   border-radius: 5px;
 }
 
-
-#left {
-  width: 50%;
-}
-
-#pawprint_btn {
-  position: relative;
-  margin-bottom: -1%;
-}
-
-#pet {
-  float: right;
-  text-align: left;
-  margin-top: -13.5%;
-  border: 4px solid #000;
-  width: 35%;
-  background-color: #f9d780;
-
-}
-
-.pet_text {
-  margin-left: 2%;
-}
-
-h2 {
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
 #paw {
   cursor: pointer;
 }
-
 .header-name{
   text-align: center;
   font-size: 25px;

@@ -10,6 +10,16 @@ window.addEventListener("load", function(){
   document.getElementById("staff_or_student").addEventListener("change", change_sors);
   document.getElementById("paw").onclick = function(){openwebpage("../../index.php")};
 
+  let auth = document.getElementsByClassName("header-button");
+  [].forEach.call(auth, function(btn){
+    if(btn.id != "logout"){
+      btn.onclick = function(){openwebpage(btn.id + ".php")}
+    }
+    else{
+      btn.onclick = logout;
+    }
+  });
+
 })
 
 
@@ -59,6 +69,12 @@ function change_pets(){
 
   table.replaceChildren();
   pets.forEach(p => {
+    document.getElementById("absolute_div").innerHTML += `<a class="pet-search" id=${-p.id}> ${p.pet_name} </a>`;
+
+
+
+
+
     let row = table.insertRow();
     for (let i = 0; i < 3; i++) {
       let cell = row.insertCell();
@@ -111,7 +127,47 @@ let setup = function() {
     }, 2)
   }
 
+  let search_pets = document.getElementById("search_div").getElementsByTagName("a");
+  [].forEach.call(search_pets, function(search_pet){
+    search_pet.onclick = function(){
+      cellbutton(-search_pet.id);
+      if(document.getElementsByClassName("selected")[0] != undefined){
+         document.getElementsByClassName("selected")[0].classList.remove("selected");
+      }
+      document.getElementById(-search_pet.id).closest('tr').classList.add("selected");
+      document.getElementById("search").value = search_pet.innerText;
+      for(let i = 0; i < search_pets.length; i++){
+        search_pets[i].style.display = "none";
+      }
+    }
+  });
+
+
 }
 
+function filter() {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("search");
+  filter = input.value.toUpperCase();
+  div = document.getElementById("search_div");
+  a = div.getElementsByTagName("a");
+  for (i = 0; i < a.length; i++) {
+    txtValue = a[i].textContent || a[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      a[i].style.display = "block";
+    } else {
+      a[i].style.display = "none";
+    }
+  }
+  if(input.value.toUpperCase().length <= 0){
+    for(i = 0; i < a.length; i++){
+      a[i].style.display = "none";
+    }
+  }
+}
 
+function logout(){
+  eraseCookie("owner_id");
+  document.location.reload();
+}
 setup();

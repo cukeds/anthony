@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
 <head>
   <link rel="stylesheet" href="main.css">
   <title>STAC Pet Portal</title>
@@ -8,15 +7,26 @@
 
 <body>
 
-
+  <?php
+  include './assets/php/dbconnect.php';
+  $conn = OpenCon();
+  ?>
 
   <div id="header">
     <h1 class="header-text"> Pet </h1>
-    <img id="paw" src="assets/images/Paw-print.svg" width="80px" height="80px"/>
+    <img id="paw" src="./assets/images/Paw-print.svg" width="80px" height="80px" />
     <h1 class="header-text"> Portal </h1>
     <div id="buttons">
-      <button class="header-button" type="button">Login</button>
-      <button class="header-button" type="button">Register</button>
+      <button class="header-button tbh" type="button" id="login">Login</button>
+      <button class="header-button tbh" type="button" id="register">Register</button>
+      <?php
+      if(isset($_COOKIE["owner_id"])){
+        $sql = "SELECT first_name, last_name FROM owners WHERE owner_id = '$_COOKIE[owner_id]'";
+        $result = $conn->query($sql);
+        echo '<a class="header-name"> Hi ' . $result->fetch_assoc()["first_name"] . '</a>';
+      }
+        ?>
+      <button class="header-button hidden" type="button" id="logout">Log Out</button>
     </div>
   </div>
   <hr>
@@ -24,10 +34,6 @@
 
 
   <div id="left">
-
-    <div class="search">
-      <input type="text" placeholder="Search..">
-    </div>
 
     <button id="students" class="left-button pets" type="button">Student Pets</button>
     <button id="staff" class="left-button pets" type="button">Staff Pets</button>
@@ -49,7 +55,19 @@
       </div>
     </div>
     </div>
+
+    <script src="./assets/scripts/cookies.js"></script>
     <script src="main.js"></script>
+
+    <?php if(isset($_COOKIE['owner_id'])){
+      $sql = "SELECT first_name AS fname, last_name AS lname, age AS sage, isstaff AS sors, school_year AS syear, area_of_work AS awork FROM owners WHERE owner_id = '$_COOKIE[owner_id]'";
+      $result = $conn->query($sql);
+      $result = json_encode($result->fetch_assoc());
+      echo "<script type='text/javascript'>cookie($_COOKIE[owner_id], $result);</script>";
+    }
+
+    CloseCon($conn);
+    ?>
 </body>
 
 
