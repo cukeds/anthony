@@ -1,24 +1,3 @@
-<?php
-
-if (!isset($_SESSION)) {
-session_start();
-}
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-$_SESSION['postdata'] = $_POST;
-unset($_POST);
-header("Location: ".$_SERVER['REQUEST_URI']);
-exit;
-}
-
-if (@$_SESSION['postdata']){
-$_POST=$_SESSION['postdata'];
-unset($_SESSION['postdata']);
-}
-
-
-?>
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -136,29 +115,38 @@ $conn = OpenCon();
             <hr class="bar">
             <div class="form-group">
               <button type="reset" value="Clear Form" class="btn btn-primary">Clear Form</button>
-              <button type="submit" value="Submit" name="Submit" class="btn btn-primary">Submit</button>
+              <button type="submit" value="Submit" name="submit" class="btn btn-primary">Submit</button>
             </div>
           </form>
 
           <?php
+
+          if(isset($_FILES['pphoto'])){
+             $errors= array();
+             $file_name = $_FILES['pphoto']['name'];
+             $file_size =$_FILES['pphoto']['size'];
+             $file_tmp =$_FILES['pphoto']['tmp_name'];
+             $file_type=$_FILES['pphoto']['type'];
+             $file_ext=strtolower(end(explode('.',$_FILES['pphoto']['name'])));
+
+             $extensions= array("jpg");
+
+             if(in_array($file_ext,$extensions)=== false){
+                $errors[]="extension not allowed, please choose a JPG file.";
+             }
+
+             if($file_size > 209715200){
+                $errors[]='File size must be less than 200 MB';
+             }
+
+             if(empty($errors)==true){
+                move_uploaded_file($file_tmp,$_SERVER["DOCUMENT_ROOT"] . "assets/images/".$file_name);
+             }else{
+                print_r($errors);
+             }
+          }
+
           if($_POST){
-            $target_dir = "../images";
-            $target_file = $target_dir . basename($_FILES["pphoto"]["name"]);
-            $uploadOk = 1;
-            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-            // Check if image file is a actual image or fake image
-            if(isset($_POST["submit"])) {
-              $check = getimagesize($_FILES["pphoto"]["tmp_name"]);
-              if($check !== false) {
-                echo "File is an image - " . $check["mime"] . ".";
-                $uploadOk = 1;
-              } else {
-                echo "File is not an image.";
-                $uploadOk = 0;
-              }
-            }
-
-
 
             $first_name = $_POST["fname"];
             $last_name = $_POST["lname"];
@@ -184,7 +172,6 @@ $conn = OpenCon();
               $sql = "INSERT INTO ownership VALUES((SELECT owner_id FROM owners ORDER BY owner_id DESC LIMIT 1), (SELECT pet_id FROM pets ORDER BY pet_id DESC LIMIT 1));";
             }
             $conn->query($sql);
-
           }
           ?>
 

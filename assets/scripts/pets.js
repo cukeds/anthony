@@ -71,10 +71,6 @@ function change_pets(){
   pets.forEach(p => {
     document.getElementById("absolute_div").innerHTML += `<a class="pet-search" id=${-p.id}> ${p.pet_name} </a>`;
 
-
-
-
-
     let row = table.insertRow();
     for (let i = 0; i < 3; i++) {
       let cell = row.insertCell();
